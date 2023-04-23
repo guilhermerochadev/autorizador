@@ -1,9 +1,9 @@
 package br.com.autorizador.api.cartao.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -21,7 +21,7 @@ import java.util.List;
  * @Entity é uma anotação JPA, usada para indicar que a classe anotada é uma classe de entidade JPA.
  * @Table, é uma anotação JPA, para especificar mais detalhes sobre a tabela associada à classe.
  * @ManyToMany, anotação responsável ela criação de relacionamentos de N X N de uma tabela. Foi pensado em uma relação
- * de vários cartões para várias transações e posteriormente o seu crecimento de informações a curto prazo de tempo também.
+ * de várias transações para vários cartões e posteriormente o seu crecimento de informações a curto prazo de tempo também.
  *
  */
 @Data
@@ -29,26 +29,18 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Accessors(chain = true)
-@Table (name = "cartao")
-public class Cartao implements Serializable {
+@Table(name = "transacao")
+public class Transacao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "numero_cartao")
-    private Long numeroCartao;
+    @ManyToMany(mappedBy = "cartoes")
+    private List<Cartao> cartoes = new ArrayList<>();
 
-    @Column(name = "senha")
-    private  String senha;
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "cartao_transacao",
-            joinColumns = @JoinColumn(name = "cartao_id"),
-            inverseJoinColumns = @JoinColumn(name= "transacao_id")
-    )
-    private List<Transacao> transacaos = new ArrayList<>();
+    @Column(name = "valor")
+    private  Double valor;
 
 }
