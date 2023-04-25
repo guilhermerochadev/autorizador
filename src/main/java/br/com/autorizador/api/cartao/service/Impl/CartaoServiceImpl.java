@@ -1,7 +1,6 @@
 package br.com.autorizador.api.cartao.service.Impl;
 
 import br.com.autorizador.api.cartao.entity.Cartao;
-import br.com.autorizador.api.cartao.entity.Transacao;
 import br.com.autorizador.api.cartao.repository.CartaoRepository;
 import br.com.autorizador.api.cartao.service.CartaoService;
 import jakarta.transaction.Transactional;
@@ -21,36 +20,26 @@ public class CartaoServiceImpl implements CartaoService {
 
     @Override
     public List<Cartao> getAllCartao() {
-        return null;
+        return cartaoRepository.findAll();
     }
 
     @Override
     public Cartao findByCartaoId(Long id) {
-        return null;
+        return cartaoRepository.findById(id).get();
     }
 
     @Override
     public Cartao findByNumeroCartao(Long numeroCartao) {
-        return null;
+        return cartaoRepository.findById(numeroCartao).get();
     }
 
     @Override
     public Cartao insertCartao(Cartao obj) {
-        return null;
-    }
-
-    @Override
-    public Cartao insertTransacao(Transacao obj) {
-        return null;
-    }
-
-    @Override
-    public Cartao updateCartao(Cartao obj) {
-        return null;
+        return cartaoRepository.save(obj);
     }
 
     @Override
     public void deleteCartao(Long id) {
-
+        cartaoRepository.deleteById(id);
     }
 }

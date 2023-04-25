@@ -34,7 +34,7 @@ public class Cartao implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "numero_cartao")
@@ -43,12 +43,7 @@ public class Cartao implements Serializable {
     @Column(name = "senha")
     private  String senha;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "cartao_transacao",
-            joinColumns = @JoinColumn(name = "cartao_id"),
-            inverseJoinColumns = @JoinColumn(name= "transacao_id")
-    )
-    private List<Transacao> transacaos = new ArrayList<>();
+    @Column(name = "valor")
+    private  Double valor;
 
 }
